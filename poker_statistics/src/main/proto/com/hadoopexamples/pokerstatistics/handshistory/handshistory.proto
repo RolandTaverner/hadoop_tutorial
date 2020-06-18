@@ -1,0 +1,156 @@
+syntax = "proto2";
+
+package handshistory;
+
+option java_multiple_files = true;
+option java_outer_classname = "HandsHistoryProto";
+option java_package = "com.hadoopexamples.pokerstatistics.handshistory";
+
+message Hand {
+  required string hand_id = 1;
+  required uint64 timestamp = 2;
+  required string mode = 3;
+  required string variant = 4;
+  optional string currency = 5;
+  required Table table = 6;
+  repeated Player players = 7; 
+  repeated Seat seats = 8;
+  repeated InitialBet initial_bets = 9;
+  repeated PlayerHoleCards hole_cards = 10;
+  required Stage preflop = 11;
+  optional Stage flop = 12;
+  optional Stage turn = 13;
+  optional Stage river = 14;
+  optional Showdown Showdown = 15;  
+  required Summary summary = 16;
+}
+
+message Table {
+  required string table_id = 1;
+  optional double small_blind = 2;
+  required double big_blind = 3;
+  optional double ante = 4;
+  optional uint32 seats_count = 5;
+  required uint32 button = 6; 
+}
+
+message Player {
+  required string player_id = 1;
+  required double stack = 2;
+}
+
+message Seat {
+  required uint32 number = 1;
+  required string player_id = 2;
+  required bool sit_out = 3;
+}
+
+message InitialBet {
+  enum Type {
+    INVALID = 0;
+    SMALL_BLIND = 1;
+    BIG_BLIND = 2;
+    STRADDLE = 3;
+    AUTOPOST = 4;
+    ANTE = 5;
+  }
+  required string player_id = 1;
+  required Type type = 2;
+  required double amount = 3;
+  optional double dead = 4;
+  optional bool all_in = 5;
+}
+
+message PlayerHoleCards {
+  required string player_id = 1;
+  repeated Card cards = 2;
+}
+
+message Card {
+  enum Suit {
+    INVALID_SUIT = 0;
+    CLUBS = 1;
+    DIAMONDS = 2;
+    HEARTS = 3;
+    SPADES = 4;  
+  }
+  enum Kind {
+    INVALID_KIND = 0;
+    TWO = 2;
+    THREE = 3;
+    FOR = 4;
+    FIVE = 5;
+    SIX = 6;
+    SEVEN = 7;
+    EIGHT = 8;
+    NINE = 9;
+    TEN = 10;
+    JACK = 11;
+    QUEEN = 12;
+    KING = 13;
+    ACE = 14;
+  }  
+  required Suit suit = 1;
+  required Kind kind = 2;
+}
+
+message Stage {
+  repeated Card cards = 1;
+  repeated Action actions = 2;
+  optional Collections collections = 3; 
+}
+
+message Action {
+  enum Type {
+    INVALID = 0;
+    CHECK = 1;
+    CALL = 2;
+    BET = 3;
+    RAISE = 4;
+    FOLD = 5;
+    SIT_OUT = 6;
+    UNCALLED_BET = 7;
+  }
+  required string player_id = 1;
+  required Type action_type = 2;
+  optional double amount = 3;
+  optional bool is_all_in = 4;
+}
+
+message Collections {
+  optional UncalledBet uncalled_bet = 1;
+  repeated PlayerCollection player_collections = 2;
+}
+
+message UncalledBet {
+  required string player_id = 1;
+  required double amount = 2;
+}
+
+message PlayerCollection {
+  required string player_id = 1;
+  required double amount = 2;
+  required uint32 pot = 3;
+}
+
+message Showdown {
+  repeated PlayerCards player_cards = 1;
+  required Collections collections = 2;
+}
+
+message PlayerCards {
+  required string player_id = 1;
+  repeated Card cards = 2;
+}
+
+message Summary {
+  required double total_pot = 1;
+  repeated double pots = 2;
+  optional double rake = 3;
+  repeated PlayerRake player_rake = 4;
+}
+
+message PlayerRake {
+  required string player_id = 1;
+  required double amount = 2;
+}

@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+package mr;
+
+option java_multiple_files = true;
+option java_outer_classname = "MRProto";
+option java_package = "com.hadoopexamples.pokerstatistics.metrics.mr";
+
+message MetricTagsValue {
+	required string name = 1;
+	repeated Tag tags = 2;
+	required MetricValue value = 3;
+}
+
+message Tag {
+	required int32 key = 1;
+	required string value = 2;
+}
+
+message MetricValue {
+	optional bool bool_value = 1;
+	optional int64 int_value = 2;
+	optional double double_value = 3;
+}
+

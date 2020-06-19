@@ -14,18 +14,19 @@ sudo apt-get install rsync
 Распаковать куда-то, например, `/work/hadoop-2.8.5`.  
 
 ```bash
-export HADOOP_DIR=/work/hadoop-2.8.5
+export WORK_DIR=/work
+export HADOOP_HOME=$WORK_DIR/hadoop-2.8.5
 ```
 
 Создать каталоги для данных
 
 ```bash
-mkdir -p /work/hadoop-data/hdfs/namenode
-mkdir -p /work/hadoop-data/hdfs/datanode
-mkdir -p /work/hadoop-data/tmp
+mkdir -p $WORK_DIR/hadoop-data/hdfs/namenode
+mkdir -p $WORK_DIR/hadoop-data/hdfs/datanode
+mkdir -p $WORK_DIR/hadoop-data/tmp
 ```
 
-Отредактировать $HADOOP_DIR/etc/hadoop/core-site.xml
+Отредактировать $HADOOP_HOME/etc/hadoop/core-site.xml
 
 ```xml
 <configuration>
@@ -43,7 +44,7 @@ mkdir -p /work/hadoop-data/tmp
 </configuration>
 ```
 
-Отредактировать $HADOOP_DIR/etc/hadoop/hdfs-site.xml
+Отредактировать $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
 ```xml
 <configuration>
@@ -66,7 +67,7 @@ mkdir -p /work/hadoop-data/tmp
 </configuration>
 ```
 
-Отредактировать  $HADOOP_DIR/etc/hadoop/hadoop-env.sh
+Отредактировать $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 
 ```bash
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -75,17 +76,17 @@ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 Однократно выполнить
 
 ```bash
-$HADOOP_DIR/bin/hdfs namenode -format
+$HADOOP_HOME/bin/hdfs namenode -format
 ```
 
 Запустить Hadoop
 
 ```bash
-$HADOOP_DIR/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/start-dfs.sh
 ```
 
 Остановить Hadoop (перед выключением или перезагрузкой, иначе может повредиться HDFS и надо будет сделать форматирование заново)
 
 ```bash
-$HADOOP_DIR/sbin/stop-dfs.sh
+$HADOOP_HOME/sbin/stop-dfs.sh
 ```

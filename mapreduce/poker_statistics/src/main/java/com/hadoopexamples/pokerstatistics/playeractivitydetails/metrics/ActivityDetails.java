@@ -66,21 +66,6 @@ public class ActivityDetails implements IMetric {
 			if (count != 0) {
 				// emit last value
 				sink.write(metricName, currentTags, m_emptyValue);
-
-				// TEMP: fake PLO, MTT
-				if (TagsMaker.getGameType(currentTags).equals("normal")) {
-					if (m_rnd.nextDouble() > 1.0 - 0.05) {
-						SortedMap<Integer, String> ploTags = new TreeMap<Integer, String>(currentTags);
-						ploTags.put(Tag.GAME_VARIANT.index(), "PLO");
-						sink.write(metricName, ploTags, m_emptyValue);
-					}
-					if (m_rnd.nextDouble() > 1.0 - 0.03) {
-
-						SortedMap<Integer, String> mttTags = new TreeMap<Integer, String>(currentTags);
-						mttTags.put(Tag.GAME_VARIANT.index(), "MTT");
-						sink.write(metricName, mttTags, m_emptyValue);
-					}
-				}
 			}
 		}
 

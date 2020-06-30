@@ -69,19 +69,6 @@ public class RakedHands implements IMetric {
 					// emit current value
 					sink.write(metricName, currentTags, MetricValue.newBuilder().setIntValue(count).build());
 
-					// TEMP: fake PLO, MTT
-					if (TagsMaker.getGameType(currentTags).equals("normal")) {
-						SortedMap<Integer, String> ploTags = new TreeMap<Integer, String>(currentTags);
-						ploTags.put(Tag.GAME_VARIANT.index(), "PLO");
-						sink.write(metricName, ploTags,
-								MetricValue.newBuilder().setIntValue((long) (count * 0.05)).build());
-
-						SortedMap<Integer, String> mttTags = new TreeMap<Integer, String>(currentTags);
-						mttTags.put(Tag.GAME_VARIANT.index(), "MTT");
-						sink.write(metricName, mttTags,
-								MetricValue.newBuilder().setIntValue((long) (count * 0.03)).build());
-					}
-
 					// start new group
 					currentTags = new TreeMap<Integer, String>(mrValue.getTags());
 					count = mrValue.getValue().getIntValue();
@@ -93,19 +80,6 @@ public class RakedHands implements IMetric {
 			if (currentTags != null) {
 				// emit last value
 				sink.write(metricName, currentTags, MetricValue.newBuilder().setIntValue(count).build());
-
-				// TEMP: fake PLO, MTT
-				if (TagsMaker.getGameType(currentTags).equals("normal")) {
-					SortedMap<Integer, String> ploTags = new TreeMap<Integer, String>(currentTags);
-					ploTags.put(Tag.GAME_VARIANT.index(), "PLO");
-					sink.write(metricName, ploTags,
-							MetricValue.newBuilder().setIntValue((long) (count * 0.05)).build());
-
-					SortedMap<Integer, String> mttTags = new TreeMap<Integer, String>(currentTags);
-					mttTags.put(Tag.GAME_VARIANT.index(), "MTT");
-					sink.write(metricName, mttTags,
-							MetricValue.newBuilder().setIntValue((long) (count * 0.03)).build());
-				}
 			}
 		}
 

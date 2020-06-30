@@ -6,9 +6,8 @@
 export HADOOP_HOME=...
 
 export DFS_DIR=/user/$USER/wordcount/in
-$HADOOP_HOME/bin/hdfs dfs -mkdir /user/$USER/wordcount 
-$HADOOP_HOME/bin/hdfs dfs -mkdir $DFS_DIR
-$HADOOP_HOME/bin/hdfs dfs -copyFromLocal ./utils/testdata.txt $DFS_DIR
+$HADOOP_HOME/bin/hdfs dfs -mkdir -p $DFS_DIR
+$HADOOP_HOME/bin/hdfs dfs -copyFromLocal ./utils/testdata.txt $DFS_DIR/
 ```
 
 ## Run

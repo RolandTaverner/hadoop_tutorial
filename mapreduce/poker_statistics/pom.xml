@@ -59,7 +59,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>ccom.hadoopexamples.pokerstatistics.App</mainClass>
+							<mainClass>com.hadoopexamples.pokerstatistics.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

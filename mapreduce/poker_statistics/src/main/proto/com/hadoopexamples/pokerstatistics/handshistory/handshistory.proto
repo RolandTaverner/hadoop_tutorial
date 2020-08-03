@@ -148,6 +148,7 @@ message Summary {
   repeated double pots = 2;
   optional double rake = 3;
   repeated PlayerRake player_rake = 4;
+  optional Collections collections = 5; 
 }
 
 message PlayerRake {
